@@ -1,4 +1,6 @@
-### Windows Host
+## Клиентская часть
+
+### Windows Client
 
 Winrm работате только с частной сетью.
 Слеющие команды меняют меняют сеть только до перезагрузки.
@@ -42,6 +44,31 @@ Winrm работате только с частной сетью.
 Также учетная запись должна быть с правами administrator.
 
 
+## Серверная часть
+
 ### Установка Docker
 
 https://docs.docker.com/engine/install/
+
+### Создание миграции, регистрация суперпользователя
+
+    docker-compose run web python manage.py makemigrations
+    docker-compose run web python manage.py migrate
+>
+    docker-compose run web python manage.py createsuperuser
+
+Потребуется ввести `Username` и `Password`.
+
+
+### Запуск контейнеров
+
+При первом запуске:
+
+    docker-compose up --build
+
+В дальнейшем:
+
+    docker-compose up
+
+### Запуск unit тестов
+    docker-compose run web pytest
