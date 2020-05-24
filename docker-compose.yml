@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    env_file:
+      - env_private/web.env
+    environment:
+      - DJANGO_DEBUG=false
+      - WINRM_CLIENT_IP="192.168.100.10"
+    volumes:
+      - .:/usr/src/network_audit
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    build: .
+    volumes:
+      - .:/usr/src/network_audit
+    depends_on:
+      - db
+      - redis
+
+  celery_beat:
+    build: .
+    volumes:
+      - .:/usr/src/network_audit
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: postgres
+    env_file:
+      - env_private/db.env
+
+  redis:
+    image: redis:alpine
