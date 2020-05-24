@@ -3,7 +3,7 @@
 ### Windows Client
 
 Winrm работате только с частной сетью.
-Слеющие команды меняют меняют сеть только до перезагрузки.
+Следющие команды меняют сеть только до перезагрузки.
 
     Get-NetConnectionProfile
     Set-NetConnectionProfile -Name "Неопознанная сеть" -NetworkCategory Private
@@ -27,7 +27,7 @@ Winrm работате только с частной сетью.
     winrm set winrm/config/service/auth '@{Basic="true"}'
 >
 
-Так же winrm можно настроить через групповые политики (gpedit.msc):
+Также winrm можно настроить через групповые политики (gpedit.msc):
 
     Административные шаблоны/
         Компоненты Windows/
