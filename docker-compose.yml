@@ -5,6 +5,7 @@ services:
     build: .
     env_file:
       - env_private/web.env
+      - env_private/db.env
     environment:
       - DJANGO_DEBUG=false
       - WINRM_CLIENT_IP="192.168.100.10"

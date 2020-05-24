@@ -3,6 +3,8 @@ from django.core.cache import cache
 import requests
 from celery import shared_task, group, signals
 
+import os
+
 from .models import *
 from utils.connector import connector
 from .models import Host
@@ -42,3 +44,4 @@ def task_get_wmi_object(**kwargs):
 @shared_task
 def task_entering_data_into_the_wmi_model():
     pass
+
