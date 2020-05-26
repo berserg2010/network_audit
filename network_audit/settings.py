@@ -62,11 +62,11 @@ WSGI_APPLICATION = 'network_audit.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'HOST': os.environ.get("POSTGRES_HOST"),
+        'HOST': os.environ.get("POSTGRES_HOST", "db"),
         'PORT': 5432,
-        'NAME': os.environ.get("POSTGRES_DB"),
-        'USER': os.environ.get("POSTGRES_USER"),
-        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
+        'NAME': os.environ.get("POSTGRES_DB", "postgres"),
+        'USER': os.environ.get("POSTGRES_USER", "postgres"),
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD", "postgres"),
     }
 }
 
@@ -95,8 +95,7 @@ STATIC_URL = '/static/'
 
 WINRM_USERNAME = os.environ.get("WINRM_USERNAME", "user")
 WINRM_PASSWORD = os.environ.get("WINRM_PASSWORD", "1q2w3e4r5t")
-#WINRM_CLIENT_IP = "192.168.1.52"
-WINRM_CLIENT_IP = os.environ.get("WINRM_CLIENT_IP", "192.168.100.10")
+WINRM_CLIENT_IP = os.environ.get("WINRM_CLIENT_IP", ["192.168.100.10", ])
 
 # CELERY
 CELERY_BROKER_URL = 'redis://redis:6379/0'
@@ -104,14 +103,12 @@ CELERY_RESULT_BACKEND = 'redis://redis:6379/1'
 CELERY_ACCEPT_CONTENT = ['application/json', ]
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-# CELERY_TIMEZONE = 'Europe/Moscow'
-
 
 # REDIS
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'LOCATION': 'redis://redis:6379/2',
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             'SERIALIZER': 'django_redis.serializers.json.JSONSerializer',

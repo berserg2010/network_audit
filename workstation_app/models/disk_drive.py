@@ -7,28 +7,28 @@ class DiskDrive(BaseModel):
 
     _wmi_object = "Win32_DiskDrive"
 
-    Description = models.CharField(max_length=255)
-    DeviceID = models.CharField(max_length=255)
-    FirmwareRevision = models.CharField(max_length=255)
-    InterfaceType = models.CharField(max_length=255)
-    Manufacturer = models.CharField(max_length=255)
-    Model = models.CharField(max_length=255)
-    SerialNumber = models.CharField(max_length=255)
-    Status = models.CharField(max_length=255)
-    SystemName = models.CharField(max_length=255)
+    Description = models.CharField(max_length=255, null=True, blank=True, default='')
+    DeviceID = models.CharField(max_length=255, null=True, blank=True, default='')
+    FirmwareRevision = models.CharField(max_length=255, null=True, blank=True, default='')
+    InterfaceType = models.CharField(max_length=255, null=True, blank=True, default='')
+    Manufacturer = models.CharField(max_length=255, null=True, blank=True, default='')
+    Model = models.CharField(max_length=255, null=True, blank=True, default='')
+    SerialNumber = models.CharField(max_length=255, null=True, blank=True, default='')
+    Status = models.CharField(max_length=255, null=True, blank=True, default='')
+    SystemName = models.CharField(max_length=255, null=True, blank=True, default='')
 
-    BytesPerSector = models.PositiveIntegerField()
-    ConfigManagerErrorCode = models.PositiveIntegerField()
-    Index = models.PositiveIntegerField()
-    Partitions = models.PositiveIntegerField()
-    Signature = models.PositiveIntegerField()
-    TotalHeads = models.PositiveIntegerField()
-    TracksPerCylinders = models.PositiveIntegerField()
+    BytesPerSector = models.PositiveIntegerField(null=True, blank=True, default=None)
+    ConfigManagerErrorCode = models.PositiveIntegerField(null=True, blank=True, default=None)
+    Index = models.PositiveIntegerField(null=True, blank=True, default=None)
+    Partitions = models.PositiveIntegerField(null=True, blank=True, default=None)
+    Signature = models.PositiveIntegerField(null=True, blank=True, default=None)
+    TotalHeads = models.PositiveIntegerField(null=True, blank=True, default=None)
+    TracksPerCylinders = models.PositiveIntegerField(null=True, blank=True, default=None)
 
-    Size = models.BigIntegerField()
-    TotalCylinders = models.BigIntegerField()
-    TotalSectors = models.BigIntegerField()
-    TotalTracks = models.BigIntegerField()
+    Size = models.BigIntegerField(null=True, blank=True, default=None)
+    TotalCylinders = models.BigIntegerField(null=True, blank=True, default=None)
+    TotalSectors = models.BigIntegerField(null=True, blank=True, default=None)
+    TotalTracks = models.BigIntegerField(null=True, blank=True, default=None)
 
     def __str__(self):
         return f"<{self.__class__} {self.Model} {self.Size / (1024 ** 3)} GB>"

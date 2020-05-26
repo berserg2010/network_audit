@@ -1,4 +1,4 @@
-from .host import Host
+from .workstation import Workstation
 from .base_board import BaseBoard
 from .disk_drive import DiskDrive
 from .network_adapter import NetworkAdapter
@@ -8,7 +8,7 @@ from .processor import Processor
 from .video_controller import VideoController
 
 list_class_models = (
-    Host,
+    Workstation,
     BaseBoard,
     DiskDrive,
     NetworkAdapter,

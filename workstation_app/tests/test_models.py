@@ -1,7 +1,7 @@
 import pytest
 from mixer.backend.django import mixer
 
-from workstation_app.models import Host, list_class_models
+from workstation_app.models import Workstation, list_class_models
 
 pytestmark = pytest.mark.django_db
 

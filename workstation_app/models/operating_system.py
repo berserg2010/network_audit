@@ -7,33 +7,34 @@ class OperatingSystem(BaseModel):
 
     _wmi_object = "Win32_OperatingSystem"
 
-    BootDevice = models.CharField(max_length=255)
-    BuildNumber = models.CharField(max_length=255)
-    Caption = models.CharField(max_length=255)
-    CodeSet = models.CharField(max_length=255)
-    CountryCode = models.CharField(max_length=255)
-    CSName = models.CharField(max_length=255)
-    Locale = models.CharField(max_length=255)
-    Manufacturer = models.CharField(max_length=255)
-    OSArchitecture = models.CharField(max_length=255)
-    RegisteredUser = models.CharField(max_length=255)
-    SerialNumber = models.CharField(max_length=255)
-    Status = models.CharField(max_length=255)
-    Version = models.CharField(max_length=255)
+    BootDevice = models.CharField(max_length=255, null=True, blank=True, default='')
+    BuildNumber = models.CharField(max_length=255, null=True, blank=True, default='')
+    Caption = models.CharField(max_length=255, null=True, blank=True, default='')
+    CodeSet = models.CharField(max_length=255, null=True, blank=True, default='')
+    CountryCode = models.CharField(max_length=255, null=True, blank=True, default='')
+    CSName = models.CharField(max_length=255, null=True, blank=True, default='')
+    Locale = models.CharField(max_length=255, null=True, blank=True, default='')
+    Manufacturer = models.CharField(max_length=255, null=True, blank=True, default='')
+    OSArchitecture = models.CharField(max_length=255, null=True, blank=True, default='')
+    RegisteredUser = models.CharField(max_length=255, null=True, blank=True, default='')
+    SerialNumber = models.CharField(max_length=255, null=True, blank=True, default='')
+    Status = models.CharField(max_length=255, null=True, blank=True, default='')
+    Version = models.CharField(max_length=255, null=True, blank=True, default='')
 
-    CurrentTimeZone = models.SmallIntegerField()
+    CurrentTimeZone = models.SmallIntegerField(null=True, blank=True, default=None)
 
-    ServicePackMajorVersion = models.PositiveSmallIntegerField()
-    ServicePackMinorVersion = models.PositiveSmallIntegerField()
+    ServicePackMajorVersion = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
+    ServicePackMinorVersion = models.PositiveSmallIntegerField(null=True, blank=True, default=None)
 
-    EncryptionLevel = models.PositiveIntegerField()
-    NumberOfUsers = models.PositiveIntegerField()
-    OSLanguage = models.PositiveIntegerField()
-    OSProductSuite = models.PositiveIntegerField()
+    EncryptionLevel = models.PositiveIntegerField(null=True, blank=True, default=None)
+    NumberOfUsers = models.PositiveIntegerField(null=True, blank=True, default=None)
+    OSLanguage = models.PositiveIntegerField(null=True, blank=True, default=None)
+    OSProductSuite = models.PositiveIntegerField(null=True, blank=True, default=None)
 
-    InstallDate = models.DateTimeField()
-    LastBootUpTime = models.DateTimeField()
-    LocalDateTime = models.DateTimeField()
+    # Datetime
+    InstallDate = models.CharField(max_length=255, null=True, blank=True, default='')
+    LastBootUpTime = models.CharField(max_length=255, null=True, blank=True, default='')
+    LocalDateTime = models.CharField(max_length=255, null=True, blank=True, default='')
 
     def __str__(self):
         return f"<{self.__class__} {self.Caption}>"

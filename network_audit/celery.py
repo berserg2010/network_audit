@@ -8,18 +8,19 @@ from network_audit import settings
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'network_audit.settings')
 
-app = Celery('network_audit_api')
+app = Celery('network_audit')
 
 app.config_from_object('django.conf:settings', namespace='CELERY')
 
-app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+# app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
+app.autodiscover_tasks()
 
 
 app.conf.beat_schedule = {
     'add-every-30-seconds': {
-        'task': 'workstation_app.tasks.task_get_wmi_objects',
+        'task': 'workstation_app.tasks.task_get_data_from_workstations',
         'schedule': 30.0,
-        "kwargs": {"ip_address": settings.WINRM_CLIENT_IP},
+        # 'schedule': crontab(),
         # 'schedule': crontab(hour=7),
     },
 }

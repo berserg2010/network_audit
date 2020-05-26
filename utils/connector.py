@@ -2,6 +2,7 @@ import winrm
 import functools
 import json
 from requests.exceptions import ConnectTimeout
+from django.core.cache import cache
 
 from network_audit import settings
 from utils.utils import (
@@ -27,11 +28,15 @@ class Connector:
 
 def connector(func):
     @functools.wraps(func)
-    def wrapped(ip_address, wmi_class, *args, **kwargs):
+    def wrapped(ip_address: str, wmi_class: str, *args, **kwargs):
+
+        kwargs["ip_address"] = ip_address
+        kwargs["wmi_class"] = wmi_class
+
         try:
             session = Connector(
                 ip_address,
-                auth=(settings.WINRM_USERNAME, settings.WINRM_PASSWORD)
+                auth=(cache.get("WINRM_USERNAME"), cache.get("WINRM_PASSWORD"))
             )
 
             result = session.run(
@@ -43,15 +48,14 @@ def connector(func):
 
             assert result.status_code == 0
 
-            data = json.loads(result.std_out)
-            kwargs['data'] = data if isinstance(data, list) else [data]
+            kwargs["std_out"] = json.loads(result.std_out)
 
         except ConnectTimeout as e:
-            kwargs['error'] = f'{e}'
+            kwargs["error"] = f'{e}'
         except AssertionError as e:
-            kwargs['error'] = f'{e}'
+            kwargs["error"] = f'{e}'
         except json.JSONDecodeError as e:
-            kwargs['error'] = f'{e}'
+            kwargs["error"] = f'{e}'
 
-        return func(*args, **kwargs)
+        return func(**kwargs)
     return wrapped

@@ -13,7 +13,6 @@ services:
       - .:/usr/src/network_audit
     depends_on:
       - db
-      - redis
 
   celery:
     build: .
@@ -22,6 +21,7 @@ services:
     depends_on:
       - db
       - redis
+      - web
 
   celery_beat:
     build: .
@@ -30,6 +30,7 @@ services:
     depends_on:
       - db
       - redis
+      - web
 
   db:
     image: postgres
